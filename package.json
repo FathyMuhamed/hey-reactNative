@@ -4,12 +4,22 @@
   "main": "expo-router/entry",
   "scripts": {
     "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web"
+    "android": "expo run:android",
+    "ios": "expo run:ios",
+    "web": "expo start --web",
+    "eject": "expo eject",
+    "lint:check": "eslint --ext '.js,.ts,.tsx' .",
+    "lint:fix": "pnpm lint --fix",
+    "type:check": "tsc --noEmit",
+    "prettier": "prettier \"{.,src,src/**}/*.{md,js,jsx,ts,tsx,json}\"",
+    "prettier:check": "pnpm prettier -c",
+    "prettier:fix": "pnpm prettier -w",
+    "dev:check": "pnpm prettier:check & pnpm lint:check & pnpm type:check"
   },
   "dependencies": {
     "@expo/vector-icons": "^14.0.2",
+    "@tanstack/react-query": "^5.62.3",
+    "@tanstack/react-query-devtools": "^5.62.3",
     "expo": "~52.0.17",
     "expo-constants": "~17.0.3",
     "expo-linking": "~7.0.3",
@@ -26,7 +36,7 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-react-native": "^4.1.0",
-    "prettier": "^3.4.1",
+    "prettier": "^3.4.2",
     "typescript": "^5.3.3"
   },
   "private": true
