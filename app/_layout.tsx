@@ -1,4 +1,9 @@
-import { AntDesign, Feather } from "@expo/vector-icons";
+import {
+  FontAwesome6,
+  Ionicons,
+  MaterialCommunityIcons,
+  MaterialIcons,
+} from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 import { Colors } from "../constants/Colors";
 
@@ -10,7 +15,6 @@ function Layout() {
         tabBarInactiveTintColor: Colors.light.tabIconDefault,
         tabBarStyle: {
           backgroundColor: Colors.light.background,
-          borderTopColor: Colors.light.tint,
         },
         tabBarIconStyle: {
           width: 35,
@@ -27,7 +31,7 @@ function Layout() {
           title: "Today",
           headerShown: false,
           tabBarIcon: ({ color, size }) => {
-            return <Feather name="list" size={size} color={color} />;
+            return <Ionicons name="today" size={size} color={color} />;
           },
         }}
       />
@@ -37,7 +41,11 @@ function Layout() {
           headerShown: false,
           title: "Prayers",
           tabBarIcon: ({ color, size }) => (
-            <AntDesign name="infocirlce" size={size} color={color} />
+            <MaterialCommunityIcons
+              name="hands-pray"
+              size={size}
+              color={color}
+            />
           ),
         }}
       />
@@ -47,7 +55,7 @@ function Layout() {
           headerShown: false,
           title: "Live",
           tabBarIcon: ({ color, size }) => (
-            <AntDesign name="laptop" size={size} color={color} />
+            <FontAwesome6 name="radio" size={size} color={color} />
           ),
         }}
       />
@@ -57,7 +65,7 @@ function Layout() {
           headerShown: false,
           title: "Do'a",
           tabBarIcon: ({ color, size }) => (
-            <AntDesign name="book" size={size} color={color} />
+            <Ionicons name="alarm" size={size} color={color} />
           ),
         }}
       />
@@ -67,7 +75,7 @@ function Layout() {
           headerShown: false,
           title: "Profile",
           tabBarIcon: ({ color, size }) => (
-            <AntDesign name="book" size={size} color={color} />
+            <MaterialIcons name="settings-suggest" size={size} color={color} />
           ),
         }}
       />
