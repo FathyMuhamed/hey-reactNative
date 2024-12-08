@@ -13,7 +13,7 @@ import { FontAwesome6 } from "@expo/vector-icons";
 
 export function DailyPrayerList() {
   return (
-    <View style={styles.container}>
+    <View>
       <View style={styles.header}>
         <Text style={styles.headerText}>Daily Prayer</Text>
         <Link href="/prayers" asChild>
@@ -44,7 +44,6 @@ export function DailyPrayerList() {
   );
 }
 const styles = StyleSheet.create({
-  container: {},
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
