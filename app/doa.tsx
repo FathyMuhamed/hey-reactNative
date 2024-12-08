@@ -1,10 +1,10 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 
-export default function App() {
+export default function Doa() {
   return (
     <View style={styles.container}>
-      <Text>welcome </Text>
+      <Text>Doa</Text>
 
       <StatusBar style="auto" />
     </View>
