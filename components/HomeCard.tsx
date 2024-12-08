@@ -13,7 +13,6 @@ export function HomeCard() {
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-between",
-          paddingHorizontal: 16,
           marginVertical: 16,
         }}
       >
@@ -47,7 +46,6 @@ export function HomeCard() {
             backgroundColor: Colors.light.backgroundSecondary,
             padding: 16,
             borderRadius: 16,
-            marginHorizontal: 16,
             justifyContent: "space-between",
             flexDirection: "row",
           }}
