@@ -1,16 +1,22 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet } from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
 import { Colors } from "../constants/Colors";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { MainHeader } from "../components/MainHeader";
 import { LiveStreamList } from "../components/LiveStreamList";
+import { DailyPrayerList } from "../components/DailyPrayerList";
+import PrayerCard from "../components/PrayerCard";
 
 export default function App() {
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar style="auto" />
-      <MainHeader />
-      <LiveStreamList />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <StatusBar style="auto" />
+        <MainHeader />
+        <PrayerCard />
+        <LiveStreamList />
+        <DailyPrayerList />
+      </ScrollView>
     </SafeAreaView>
   );
 }

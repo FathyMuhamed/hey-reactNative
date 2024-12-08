@@ -9,33 +9,37 @@ import {
 import { Colors } from "../constants/Colors";
 import { Link } from "expo-router";
 import React from "react";
+import { FontAwesome6 } from "@expo/vector-icons";
 
-export function LiveStreamList() {
+export function DailyPrayerList() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerText}>Live Radio</Text>
-        <Link href="/live" asChild>
+        <Text style={styles.headerText}>Daily Prayer</Text>
+        <Link href="/prayers" asChild>
           <TouchableOpacity accessibilityRole="button" style={styles.button}>
             <Text style={styles.buttonText}>See All</Text>
           </TouchableOpacity>
         </Link>
       </View>
-      <FlatList
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        data={Array.from({ length: 5 })}
-        keyExtractor={(_, i) => i.toString()}
-        renderItem={({ index }) => (
-          <View style={styles.itemContainer}>
-            <Image
-              style={styles.image}
-              source={{ uri: "https://placehold.co/80/546518/ffffff/png" }}
+      <View style={styles.itemContainer}>
+        {Array.from({ length: 6 })?.map((_, index) => (
+          <TouchableOpacity
+            accessibilityRole="button"
+            activeOpacity={0.7}
+            onPress={() => console.log("press prayer")}
+            key={index}
+            style={styles.item}
+          >
+            <FontAwesome6
+              name="location-dot"
+              size={24}
+              color={Colors.light.text}
             />
             <Text style={styles.itemText}>Radio {index + 1}</Text>
-          </View>
-        )}
-      />
+          </TouchableOpacity>
+        ))}
+      </View>
     </View>
   );
 }
@@ -62,13 +66,22 @@ const styles = StyleSheet.create({
     color: Colors.light.white,
     fontWeight: "bold",
   },
-  itemContainer: {},
-  image: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-    marginRight: 12,
-    marginBottom: 8,
+  itemContainer: {
+    alignItems: "center",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+    rowGap: 16,
+  },
+  item: {
+    borderStyle: "solid",
+    borderWidth: 1,
+    borderColor: Colors.light.backgroundSecondary,
+    borderRadius: 12,
+    padding: 8,
+    width: 120,
+    gap: 8,
+    alignItems: "center",
   },
   itemText: {
     color: Colors.light.text,
