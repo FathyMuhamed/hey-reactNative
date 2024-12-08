@@ -1,7 +1,9 @@
-import { Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import { Colors } from "../constants/Colors";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import Feather from "@expo/vector-icons/build/Feather";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import Entypo from "@expo/vector-icons/Entypo";
 
 export function HomeCard() {
   return (
@@ -12,7 +14,7 @@ export function HomeCard() {
           alignItems: "center",
           justifyContent: "space-between",
           paddingHorizontal: 16,
-          marginBottom: 16,
+          marginVertical: 16,
         }}
       >
         <View
@@ -37,10 +39,52 @@ export function HomeCard() {
             Unknown
           </Text>
         </View>
-        <Feather name="search" size={26} color={Colors.light.icon} />
+        <Feather name="search" size={24} color={Colors.light.icon} />
       </View>
       <View>
-        <Text>Open up App.tsx to start working on your app!</Text>
+        <View
+          style={{
+            backgroundColor: Colors.light.backgroundSecondary,
+            padding: 16,
+            borderRadius: 16,
+            marginHorizontal: 16,
+            justifyContent: "space-between",
+            flexDirection: "row",
+          }}
+        >
+          <View
+            style={{
+              alignItems: "center",
+              gap: 8,
+              flexDirection: "row",
+            }}
+          >
+            <MaterialCommunityIcons
+              name="hand-heart-outline"
+              size={24}
+              color={Colors.light.white}
+            />
+            <Text
+              style={{
+                fontSize: 18,
+                color: Colors.light.white,
+                fontWeight: "500",
+              }}
+            >
+              Start your day with these prayers
+            </Text>
+          </View>
+          <Pressable
+            hitSlop={16}
+            onPress={() => console.log("press to go doa page")}
+            style={({ pressed }) => ({
+              transform: [{ translateX: pressed ? 5 : 0 }],
+              opacity: pressed ? 0.7 : 1,
+            })}
+          >
+            <Entypo name="chevron-with-circle-right" size={24} color="white" />
+          </Pressable>
+        </View>
       </View>
     </View>
   );
