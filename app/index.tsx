@@ -2,13 +2,15 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet } from "react-native";
 import { Colors } from "../constants/Colors";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { HomeCard } from "../components/HomeCard";
+import { MainHeader } from "../components/MainHeader";
+import { LiveStreamList } from "../components/LiveStreamList";
 
 export default function App() {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
-      <HomeCard />
+      <MainHeader />
+      <LiveStreamList />
     </SafeAreaView>
   );
 }
