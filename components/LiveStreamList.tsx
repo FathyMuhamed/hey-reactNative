@@ -9,6 +9,7 @@ import {
 import { Colors } from "../constants/Colors";
 import { Link } from "expo-router";
 import React from "react";
+import { HOME_RADIO_DATA } from "../constants/RadioData";
 
 export function LiveStreamList() {
   return (
@@ -24,16 +25,16 @@ export function LiveStreamList() {
       <FlatList
         horizontal
         showsHorizontalScrollIndicator={false}
-        data={Array.from({ length: 5 })}
-        keyExtractor={(_, i) => i.toString()}
-        renderItem={({ index }) => (
-          <View style={styles.itemContainer}>
+        data={HOME_RADIO_DATA}
+        keyExtractor={(item) => item.id?.toString()}
+        renderItem={({ item }) => (
+          <TouchableOpacity activeOpacity={0.7} style={styles.itemContainer}>
             <Image
               style={styles.image}
-              source={{ uri: "https://placehold.co/80/546518/ffffff/png" }}
+              source={require("../assets/radio.jpg")}
             />
-            <Text style={styles.itemText}>Radio {index + 1}</Text>
-          </View>
+            <Text style={styles.itemText}>{item.name}</Text>
+          </TouchableOpacity>
         )}
       />
     </View>
@@ -72,7 +73,8 @@ const styles = StyleSheet.create({
   },
   itemText: {
     color: Colors.light.text,
-    fontSize: 16,
+    fontSize: 12,
+    width: 80,
     fontWeight: "bold",
     textAlign: "center",
   },
