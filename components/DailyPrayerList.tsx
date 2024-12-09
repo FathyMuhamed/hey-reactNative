@@ -10,6 +10,7 @@ import { Colors } from "../constants/Colors";
 import { Link } from "expo-router";
 import React from "react";
 import { FontAwesome6 } from "@expo/vector-icons";
+// "https://mp3quran.net/api/v3/radios?language=ar&limit=5"
 
 export function DailyPrayerList() {
   return (
