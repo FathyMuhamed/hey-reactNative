@@ -4,8 +4,38 @@ import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import Feather from "@expo/vector-icons/build/Feather";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import Entypo from "@expo/vector-icons/Entypo";
+import * as Location from "expo-location";
+import { useEffect, useState } from "react";
 
 export function MainHeader() {
+  const [city, setCity] = useState<null | string>(null);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      let address = await Location.reverseGeocodeAsync({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+      });
+      setCity(address[0]?.city ?? "Unknown location");
+    })();
+  }, []);
+
+  let locationText = "Getting location...";
+  if (errorMsg) {
+    console.error(errorMsg);
+    locationText = "Unknown location";
+  } else if (typeof city === "string") {
+    locationText = city;
+  }
+
   return (
     <View>
       <View style={styles.header}>
@@ -15,7 +45,7 @@ export function MainHeader() {
             size={24}
             color={Colors.light.icon}
           />
-          <Text style={styles.locationText}>Unknown</Text>
+          <Text style={styles.locationText}>{locationText}</Text>
         </View>
         <Feather name="search" size={24} color={Colors.light.icon} />
       </View>
