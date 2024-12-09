@@ -5,13 +5,7 @@ import { Colors } from "../constants/Colors";
 export default function PrayerCard() {
   return (
     <View style={styles.container}>
-      <Image
-        style={styles.image}
-        source={{
-          uri: "https://placehold.co/200/546518/ffffff/png",
-          scale: 1,
-        }}
-      />
+      <Image style={styles.image} source={require("../assets/mosque.jpg")} />
       <View style={styles.overlay}>
         <Text style={styles.text}>PrayerCard</Text>
         <Text style={styles.text}>PrayerCard</Text>
@@ -22,7 +16,6 @@ export default function PrayerCard() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "red",
     borderRadius: 12,
     marginVertical: 16,
     height: 200,
@@ -39,10 +32,12 @@ const styles = StyleSheet.create({
   },
   overlay: {
     position: "absolute",
-    top: "50%",
+    top: "35%",
     left: "5%",
   },
   text: {
-    color: Colors.light.white,
+    color: Colors.light.text,
+    fontWeight: "bold",
+    fontSize: 18,
   },
 });
