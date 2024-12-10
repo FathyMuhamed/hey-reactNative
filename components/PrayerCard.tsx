@@ -2,41 +2,20 @@ import { View, Text, Image, StyleSheet } from "react-native";
 import React from "react";
 import { Colors } from "../constants/Colors";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-
-const formatDate = (date: Date) => {
-  const day = String(date.getDate()).padStart(2, "0");
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const year = date.getFullYear();
-  return `${day}-${month}-${year}`;
-};
-
-const timeStringToTimestamp = (timeStr: string): number => {
-  const [hours, minutes] = timeStr.split(":").map(Number);
-  const today = new Date();
-  today.setHours(hours, minutes, 0, 0);
-  return Math.floor(today.getTime() / 1000);
-};
+import { convertTo12Hour, timeStringToTimestamp } from "../utils/Date";
+import { prayerTimingQueryOptions } from "../api/prayerApi";
 
 export default function PrayerCard() {
-  const { data, isLoading } = useQuery({
-    queryKey: ["prayer-now"],
-    queryFn: async () => {
-      const response = await axios.get(
-        `http://api.aladhan.com/v1/timingsByCity/${formatDate(new Date())}?city=cairo&country=Eg`
-      );
-      return response?.data?.data;
-    },
-  });
+  const { data, isLoading } = useQuery(prayerTimingQueryOptions());
 
   if (isLoading) return <Text>loading.....</Text>;
-  console.log("return", data);
+
   const prayerTimes = () => {
     const { timings } = data;
     const prayerTimeing = Object.entries(timings).map(([key, value]) => {
       return {
-        key,
-        value,
+        name: key,
+        time: value as string,
         timeStamp: timeStringToTimestamp(value as any),
       };
     });
@@ -44,16 +23,19 @@ export default function PrayerCard() {
     const nextPrayer = prayerTimeing.find(
       (prayer) => prayer.timeStamp > currentTime
     );
-    return nextPrayer;
+    return {
+      name: nextPrayer?.name ?? "unknown",
+      time: nextPrayer?.time ?? "unknown",
+    };
   };
-  console.log(prayerTimes());
+  const { name, time } = prayerTimes();
 
   return (
     <View style={styles.container}>
       <Image style={styles.image} source={require("../assets/mosque.jpg")} />
       <View style={styles.overlay}>
-        <Text style={styles.text}>PrayerCard</Text>
-        <Text style={styles.text}>PrayerCard</Text>
+        <Text style={styles.text}>{name}</Text>
+        <Text style={styles.text}>{convertTo12Hour(time)}</Text>
       </View>
     </View>
   );
@@ -77,12 +59,15 @@ const styles = StyleSheet.create({
   },
   overlay: {
     position: "absolute",
-    top: "35%",
+    top: "15%",
     left: "5%",
+    backgroundColor: "rgba(0,0,0,0.3)",
+    borderRadius: 6,
+    padding: 8,
   },
   text: {
-    color: Colors.light.text,
+    color: Colors.light.white,
     fontWeight: "bold",
-    fontSize: 18,
+    fontSize: 24,
   },
 });
