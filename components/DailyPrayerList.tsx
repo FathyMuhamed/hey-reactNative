@@ -1,15 +1,11 @@
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  FlatList,
-  Image,
-  StyleSheet,
-} from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Colors } from "../constants/Colors";
 import { Link } from "expo-router";
 import React from "react";
 import { FontAwesome6 } from "@expo/vector-icons";
+import { DAILY_DOA_DATA } from "../constants/DailyDoaData";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+
 // "https://mp3quran.net/api/v3/radios?language=ar&limit=5"
 
 export function DailyPrayerList() {
@@ -24,22 +20,26 @@ export function DailyPrayerList() {
         </Link>
       </View>
       <View style={styles.itemContainer}>
-        {Array.from({ length: 6 })?.map((_, index) => (
-          <TouchableOpacity
-            accessibilityRole="button"
-            activeOpacity={0.7}
-            onPress={() => console.log("press prayer")}
-            key={index}
-            style={styles.item}
-          >
-            <FontAwesome6
-              name="location-dot"
-              size={24}
-              color={Colors.light.text}
-            />
-            <Text style={styles.itemText}>Radio {index + 1}</Text>
-          </TouchableOpacity>
-        ))}
+        {Object.keys(DAILY_DOA_DATA)
+          ?.slice(0, 6)
+          ?.map((item, index) => {
+            return (
+              <TouchableOpacity
+                accessibilityRole="button"
+                activeOpacity={0.7}
+                onPress={() => console.log("press prayer")}
+                key={index}
+                style={styles.item}
+              >
+                <MaterialCommunityIcons
+                  name="hands-pray"
+                  size={24}
+                  color="black"
+                />
+                <Text style={styles.itemText}>{item}</Text>
+              </TouchableOpacity>
+            );
+          })}
       </View>
     </View>
   );
