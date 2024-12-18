@@ -1,8 +1,7 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Colors } from "../constants/Colors";
 import { Link } from "expo-router";
-import React, { useCallback, useMemo, useRef } from "react";
-import { FontAwesome6 } from "@expo/vector-icons";
+import React, { useCallback, useMemo, useRef, useState } from "react";
 import { DAILY_DOA_DATA } from "../constants/DailyDoaData";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { BottomSheetModal, BottomSheetView } from "@gorhom/bottom-sheet";
@@ -10,6 +9,14 @@ import { BottomSheetModal, BottomSheetView } from "@gorhom/bottom-sheet";
 // "https://mp3quran.net/api/v3/radios?language=ar&limit=5"
 
 export function DailyPrayerList() {
+  const [bottomSheetContent, setBottomSheetContent] = useState<{
+    title: string;
+    description: string;
+  }>({
+    title: "",
+    description: "",
+  });
+
   const bottomSheetRef = useRef<BottomSheetModal>(null);
 
   const snapPoints = useMemo(() => ["100%"], []);
@@ -34,15 +41,25 @@ export function DailyPrayerList() {
       <View style={styles.itemContainer}>
         {Object.keys(DAILY_DOA_DATA)
           ?.slice(0, 6)
-          ?.map((item, index) => {
+          ?.map((item: any) => {
+            const handlePrayerItemPress = () => {
+              const data = DAILY_DOA_DATA[item];
+
+              if (!data?.[0]) return;
+
+              const { category: title, content: description } = data[0];
+              if (!title || !description) return;
+
+              setBottomSheetContent({ title, description });
+              handleOpenPress();
+            };
+
             return (
               <TouchableOpacity
                 accessibilityRole="button"
                 activeOpacity={0.7}
-                onPress={() => {
-                  bottomSheetRef?.current?.present();
-                }}
-                key={index}
+                onPress={handlePrayerItemPress}
+                key={item}
                 style={styles.item}
               >
                 <MaterialCommunityIcons
@@ -60,11 +77,22 @@ export function DailyPrayerList() {
         index={0}
         snapPoints={snapPoints}
         enablePanDownToClose={true}
+        backgroundStyle={{
+          backgroundColor: Colors.light.background,
+        }}
       >
         <BottomSheetView style={styles.contentContainer}>
           <View style={styles.content}>
-            <Text style={styles.bottomSheetTitle}>Bottom Sheet Content</Text>
-            <Text>This is the content of the bottom sheet.</Text>
+            <Text style={styles.bottomSheetTitle}>
+              {bottomSheetContent?.title}
+            </Text>
+            <Text
+              style={{
+                textAlign: "center",
+              }}
+            >
+              {bottomSheetContent?.description}
+            </Text>
             <TouchableOpacity
               style={styles.closeButton}
               onPress={handleClosePress}
@@ -77,6 +105,7 @@ export function DailyPrayerList() {
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
@@ -145,13 +174,14 @@ const styles = StyleSheet.create({
   contentContainer: {
     flex: 1,
     alignItems: "center",
-    height: 200,
+    minHeight: 200,
     backgroundColor: Colors.light.background,
   },
   content: {
-    // width: "100%",
     gap: 15,
     paddingVertical: 10,
     paddingHorizontal: 20,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

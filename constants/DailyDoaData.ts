@@ -1,4 +1,12 @@
-export const DAILY_DOA_DATA = {
+export const DAILY_DOA_DATA: {
+  [key: string]: {
+    category: string;
+    count: string;
+    description: string;
+    reference: string;
+    content: string;
+  }[];
+} = {
   "أذكار الصباح": [
     {
       category: "أذكار الصباح",
