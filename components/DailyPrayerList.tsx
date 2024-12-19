@@ -96,6 +96,7 @@ export function DailyPrayerList() {
             <TouchableOpacity
               style={styles.closeButton}
               onPress={handleClosePress}
+              hitSlop={12}
             >
               <Text style={styles.closeButtonText}>Close</Text>
             </TouchableOpacity>
@@ -174,7 +175,7 @@ const styles = StyleSheet.create({
   contentContainer: {
     flex: 1,
     alignItems: "center",
-    minHeight: 200,
+    minHeight: 210,
     backgroundColor: Colors.light.background,
   },
   content: {
