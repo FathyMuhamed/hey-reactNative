@@ -28,6 +28,14 @@ export default function PrayerCard() {
       time: nextPrayer?.time ?? "unknown",
     };
   };
+
+  if (!data)
+    return (
+      <View>
+        <Text>Something went wrong</Text>
+      </View>
+    );
+
   const { name, time } = prayerTimes();
 
   return (
